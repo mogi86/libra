@@ -1,0 +1,33 @@
+- name: yum update
+  yum: name=* state=latest
+  tags: common
+
+- name: install packages
+  yum: name={{item}}
+  with_items:
+    - git
+    - gcc-c++
+    - patch
+    - readline
+    - readline-devel
+    - zlib
+    - zlib-devel
+    - libyaml-devel
+    - libffi-devel
+    - openssl-devel
+    - make
+    - bzip2
+    - autoconf
+    - automake
+    - libtool
+    - bison
+    - mysql-devel
+    - httpd-devel
+    - curl
+    - curl-devel
+    - which
+  tags: common
+
+- name: install sudo
+  yum: name=sudo
+  tags: common

@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+#  become: true
+  connection: docker
+  roles:
+    - common
+    - user
+    - nginx
+    - ruby

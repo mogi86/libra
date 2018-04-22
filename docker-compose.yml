@@ -1,0 +1,29 @@
+version: "2"
+services:
+  libra_web:
+    build: ./docker
+    container_name: libra_web
+    ports:
+      - "8080:80"
+      - "3000:3000"
+    depends_on:
+      - libra_db
+    links:
+      - libra_db
+    volumes:
+      - ./libra:/var/www/libra
+    tty: true
+
+  libra_db:
+    image: mysql:5.6.37
+    container_name: libra_db
+    environment:
+      MYSQL_ROOT_PASSWORD:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: libra
+      MYSQL_HOST: "localhost"
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    tty: true

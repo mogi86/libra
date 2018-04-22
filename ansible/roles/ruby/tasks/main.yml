@@ -1,0 +1,104 @@
+- name: check /usr/local/rbenv exist
+  stat: path=/usr/local/rbenv
+  register: is_exist_rbenv
+  tags: ruby
+
+- name: install rbenv
+  command: git clone https://github.com/sstephenson/rbenv.git /usr/local/rbenv
+  when: not is_exist_rbenv.stat.exists
+  tags: ruby
+
+- name: set RBENV_ROOT
+  lineinfile: >
+    dest="/etc/profile"
+    line="export RBENV_ROOT=/usr/local/rbenv"
+  tags: ruby
+
+- name: add PATH
+  lineinfile: >
+    dest="/etc/profile"
+    line="export PATH=$RBENV_ROOT/bin:$PATH"
+  tags: ruby
+
+- name: Eval rbenv init
+  lineinfile: >
+    dest="/etc/profile"
+    line='eval "$(rbenv init -)"'
+  tags: ruby
+
+- name: source /etc/profile
+  shell: /bin/bash -lc "source /etc/profile"
+  tags: ruby
+
+- name: check /usr/local/rbenv/plugins/ruby-build exists
+  stat: path=/usr/local/rbenv/plugins/ruby-build
+  register: is_exist_ruby_build
+  tags: ruby
+
+- name: install ruby-build
+  command: git clone https://github.com/sstephenson/ruby-build.git /usr/local/rbenv/plugins/ruby-build
+  when: not is_exist_ruby_build.stat.exists
+  tags: ruby
+
+- name: check installed ruby
+  stat: path=/usr/local/rbenv/versions/2.5.1
+  register: is_installed_ruby
+  tags: ruby
+
+- name: install ruby
+  shell: /bin/bash -lc "rbenv install -v 2.5.1"
+  when: not is_installed_ruby.stat.exists
+  tags: ruby
+
+- name: set ruby version
+  shell: /bin/bash -lc "rbenv global 2.5.1"
+  tags: ruby
+
+- name: gem update
+  shell: /bin/bash -lc "gem update --system"
+  tags: ruby
+
+- name: install nokogiri
+  shell: /bin/bash -lc "gem install nokogiri -v 1.8.1"
+  tags: ruby
+
+- name: install rails
+  shell: /bin/bash -lc "gem install rails -v 5.2.0"
+  tags: ruby
+
+- name: install bundle
+  shell: /bin/bash -lc "gem install bundle"
+  tags: ruby
+
+- name: rbenv rehash
+  shell: /bin/bash -lc "rbenv rehash"
+  tags: ruby
+
+- name: change permission
+#  file: path=/var/www/libra state=directory recurse=yes owner=rails group=rails mode=0755
+  file: path=/var/www/libra state=directory recurse=yes owner=rails group=rails
+  tags: ruby
+
+- name: install gemfile packege
+  become: yes
+  become_user: rails
+  shell: /bin/bash -lc "bundle install --path vendor/bundle"
+  args:
+    chdir: /var/www/libra/
+  tags: ruby
+
+#- name: install passenger
+#  shell: /bin/bash -lc "gem install passenger -v 5.1.11"
+#  tags: ruby
+#
+#- name: install passenger-module
+#  shell: /bin/bash -lc "passenger-install-apache2-module --auto --languages=ruby"
+#  tags: ruby
+#
+#- name: copy passenger.conf
+#  template: src=passenger.conf.j2 dest=/etc/httpd/conf.d/passenger.conf
+#  tags: ruby
+#
+#- name: httpd server restart
+#  service: name=httpd state=restarted enabled=yes
+#  tags: ruby

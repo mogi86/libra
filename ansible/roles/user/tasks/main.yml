@@ -1,0 +1,11 @@
+- name: add group
+  group:
+    name: rails
+  tags: user
+
+- name: add user
+  user:
+    name: rails
+    groups: rails,wheel
+    home: /home/rails
+  tags: user
