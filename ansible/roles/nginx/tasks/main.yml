@@ -2,6 +2,9 @@
   yum: name=nginx
   tags: nginx
 
-#- name: restart apache
-#  service: name=httpd state=restarted
-#  tags: apache
+- file: path=/etc/sysconfig/network state=touch follow=yes
+  tags: nginx
+
+- name: restart nginx
+  service: name=nginx state=restarted
+  tags: nginx
