@@ -1,3 +1,17 @@
+# TODO nginx-puma
+#_proj_path = "#{File.expand_path("../..", __FILE__)}"
+#_proj_name = File.basename(_proj_path)
+#_tmp_path = "#{_proj_path}/tmp"
+#
+#directory _proj_path
+#
+#bind "unix://#{_tmp_path}/sockets/puma.sock"
+#
+#pidfile "#{_tmp_path}/puma.pid"
+#state_path "#{_tmp_path}/pids/puma.state"
+#
+#stdout_redirect "#{_tmp_path}/logs/puma.stdout.log", "#{_tmp_path}/logs/puma.stderr.log", true
+
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match

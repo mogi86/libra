@@ -79,9 +79,10 @@
   file: path=/var/www/libra state=directory recurse=yes owner=rails group=rails
   tags: ruby
 
+# システムにinstallするのでrootじゃないとエラーとなる
 - name: install gemfile packege
-  become: yes
-  become_user: rails
+  #become: yes
+  #become_user: rails
   shell: /bin/bash -lc "bundle install"
   args:
     chdir: /var/www/libra/

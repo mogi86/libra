@@ -1,0 +1,11 @@
+- name: copy puma
+  template: src=puma.j2 dest=/etc/init.d/puma
+  tags: puma
+
+#- name: restart puma
+#  service: name=puma state=restarted
+#  tags: puma
+
+- name: restart nginx
+  service: name=nginx state=restarted
+  tags: puma
