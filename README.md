@@ -31,7 +31,7 @@ $ cd /path/to/libra/
 $ docker exec -it libra_web /bin/bash --login
 
 ユーザ名指定する場合
-docker exec -it -u rails libra_web /bin/bash --login
+$ docker exec -it -u rails libra_web /bin/bash --login
 ```
 
 # Add gem
@@ -44,12 +44,16 @@ $ cd /var/www/libra
 $ bundle install --path vendor/bundle
 ```
 
-# Rails server
-- `rails server`を使用する場合、以下のコマンドを実行する。
+# サーバ起動
+- `puma`を使用する。
 
-### exec rails server
+### puma起動
 
 ```
 $ cd /var/www/libra/
-$ bundle exec rails server -b 0.0.0.0 --environment=development
+$ bundle exec puma
 ```
+
+# 動作確認
+
+- 「 http://0.0.0.0:3000/ 」にアクセスし、画面が表示されればOK
