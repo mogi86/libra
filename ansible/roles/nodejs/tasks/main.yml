@@ -1,0 +1,40 @@
+- name: check installed node.js
+  stat: path=/usr/local/bin/node
+  register: is_installed_node
+  tags: nodejs
+
+- name: install node.js
+  get_url:
+    url: http://nodejs.org/dist/v9.9.0/node-v9.9.0.tar.gz
+    dest: /tmp/
+    force: yes
+  when: not is_installed_node.stat.exists
+  tags: nodejs
+
+- name: tar gz
+  shell: /bin/bash -lc "tar xvf node-v9.9.0.tar.gz"
+  args:
+    chdir: /tmp/
+  when: not is_installed_node.stat.exists
+  tags: nodejs
+
+- name: configure
+  shell: /bin/bash -lc "./configure --prefix=/usr/local"
+  args:
+    chdir: /tmp/node-v9.9.0/
+  when: not is_installed_node.stat.exists
+  tags: nodejs
+
+- name: make
+  shell: /bin/bash -lc "make"
+  args:
+    chdir: /tmp/node-v9.9.0/
+  when: not is_installed_node.stat.exists
+  tags: nodejs
+
+- name: make install
+  shell: /bin/bash -lc "make install"
+  args:
+    chdir: /tmp/node-v9.9.0/
+  when: not is_installed_node.stat.exists
+  tags: nodejs

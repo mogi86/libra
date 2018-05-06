@@ -41,7 +41,7 @@ $ docker exec -it -u rails libra_web /bin/bash --login
 
 ```
 $ cd /var/www/libra
-$ bundle install --path vendor/bundle
+$ bundle install
 ```
 
 # サーバ起動
