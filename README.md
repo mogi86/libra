@@ -57,3 +57,21 @@ $ bundle exec puma
 # 動作確認
 
 - 「 http://0.0.0.0:3000/ 」にアクセスし、画面が表示されればOK
+
+# マイグレーション
+
+- `ridgepole`を使用する。
+
+- dry run
+
+```
+$ cd /var/www/libra/
+$ bundle exec ridgepole -c ./config/database.yml --apply --dry-run -f ./db/Schemafile
+```
+
+- exec
+
+```
+$ cd /var/www/libra/
+$ bundle exec ridgepole -c ./config/database.yml --apply -f ./db/Schemafile
+```
