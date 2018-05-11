@@ -26,6 +26,7 @@
     - curl
     - curl-devel
     - which
+    - diffutils
   tags: common
 
 - name: install sudo
