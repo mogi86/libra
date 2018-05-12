@@ -1,6 +1,33 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+/* universal */
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  margin-bottom: 10px;
+}
+
+.body_container {
+  margin-top: 30px;
+}
+
+/*
 ul.hmenu {
   list-style: none;
   margin: 0 0 2em;
@@ -9,4 +36,10 @@ ul.hmenu {
 
 ul.hmenu li {
   display: inline;
+}
+*/
+
+div.user_email {
+  color: #fff;
+  text-align: right;
 }
